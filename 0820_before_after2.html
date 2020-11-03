@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jqeury</title>
+
+    <!--jquery 호출-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+
+<body>
+
+    <script>
+        $(function() {
+
+            var slide = $('.b_a div');
+            var num = 0;
+
+            var first = $('figure:first').clone(); //clone() 한번쓰면 끝
+            var last = $('figure:last').clone();
+
+            var len = $('.b_a figure').length;
+
+            // slide.append('askdjf'); slide의 자식요소로 뒤에 추가
+            //slide.prepend('askdjf'); slide의 자식요소로 앞에 추가
+
+            slide.append(first); //3번 뒤에 1번 추가
+            slide.prepend(last); //1번 앞에 3번 추가
+
+            //forEach랑 유사. figure 갯수만큼 명령 수행.
+            $('figure').each(function(i) {
+
+                if (i == 0) {
+                    pos = '-100%';
+                } else {
+                    pos = 100 * (i - 1) + '%';
+                }
+
+                $(this).css({
+                    left: pos
+                });
+            });
+
+            function aniFun() {
+                $('.b_a div').animate({ //transition같은 효과
+                    left: -100 * num + '%'
+                }, 800, callback);
+
+                function callback() {
+                    console.log(num)
+                    if (num == len) {
+                        num = 0;
+                        $('.b_a div').animate({
+                            left: -100 * num + '%'
+                        }, 0);
+                    }
+
+                    if (num == -1) {
+                        num = len - 1;
+                        $('.b_a div').animate({
+                            left: -100 * num + '%'
+                        }, 0);
+                    }
+
+
+                }
+            }
+
+
+            $('button').on('click', function() {
+                var idx = $(this).index();
+
+                if (idx == 0) { //prev
+                    num--
+                    aniFun();
+
+                } else { //next
+                    num++;
+                    aniFun();
+                }
+            });
+
+
+
+            //document ready end
+        });
+    </script>
+
+    <style>
+        * {
+            text-align: center;
+        }
+
+        .b_a {
+            border: 10px solid #f00;
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 100px auto;
+
+            overflow: hidden;
+        }
+
+        div {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            text-align: left;
+        }
+
+        figure {
+            position: absolute;
+            height: 100%;
+            margin: 0;
+        }
+
+        img {
+            width: 300px;
+            height: 100%;
+        }
+    </style>
+
+    <div class="b_a">
+        <div>
+            <figure><img src="../img/f01.jpg"></figure>
+            <figure><img src="../img/f02.jpg"></figure>
+            <figure><img src="../img/f03.jpg"></figure>
+        </div>
+    </div>
+    <p>
+        <button>prev</button>
+        <button>next</button>
+    </p>
+
+
+
+
+</body></html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jqeury</title>
+
+    <!--jquery 호출-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+
+<body>
+
+    <script>
+        $(function() {
+            //document ready start
+
+            /*            $('.s_h p button').eq(0).on('click', function() {
+                            $('.s_h figure').show();
+                        });
+
+                        $('.s_h p button').eq(1).on('click', function() {
+                            $('.s_h figure').hide();
+                        });*/
+
+
+            /*             $('button').on('click', function() {
+                             if ($(this).index() == 0) {
+                                 $('figure').show();
+                             } else {
+                                 $('figure').hide();
+                             }
+                         });*/
+
+            $('button').on('click', funSH);
+
+            function funSH() {
+                if ($(this).index() == 0) {
+                    $('figure').show();
+                } else {
+                    $('figure').hide();
+                }
+            }
+
+            //document ready end
+        });
+    </script>
+
+    <style>
+        * {
+            text-align: center;
+        }
+    </style>
+
+
+    <div class="s_h">
+        <p>
+            <button>show</button>
+            <button>hide</button>
+        </p>
+        <figure>
+            <img src="../img/f01.jpg">
+        </figure>
+    </div>
+
+
+
+</body></html>

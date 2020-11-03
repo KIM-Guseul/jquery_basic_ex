@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jqeury</title>
+
+    <!--jquery 호출-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+
+<body>
+
+    <script>
+        $(function() {
+
+            $('.ex_add_j p').before('<span>before</span>');
+            $('.ex_add_j p').after('<span>after</span>');
+
+            $('.ex_add_j p').prepend('<span>prepend</span>');
+            $('.ex_add_j p').append('<span>append</span>');
+
+            //============================================
+
+            $('.ex_move_j p:first').before($('.ex_move_j p:last'));
+            $('.ex_move_j p:first').prepend($('.ex_move_j p:first span:last'));
+
+            //document ready end
+        });
+    </script>
+
+
+    <div class="ex_add_j">
+        <!--before-->
+        <p>
+            <!--prepend-->
+            <strong>자식요소</strong>
+            <!--append-->
+        </p>
+        <!--after-->
+    </div>
+
+    <br>
+    <hr><br>
+
+    <div class="ex_move_j">
+        <!--p01 앞으로 p02 이동-->
+
+        <p>
+            <!--s01 앞으로 s02 이동-->
+            <span>p01-s01</span>
+            <span>p01-s02</span>
+        </p>
+        <p>
+            <span>p02-s01</span>
+            <span>p02-s02</span>
+        </p>
+    </div>
+
+    <br>
+    <hr><br>
+
+    <script>
+        $(function() {
+
+            var el = document.querySelector('.ex_add_v p');
+            var elTxt = '<span>beforebegin</span>';
+
+            //insertAdjacentHTML() 추가o 이동x
+
+            el.insertAdjacentHTML('beforebegin', elTxt); //before
+            el.insertAdjacentHTML('afterend', '<span>afterden</span>'); //after
+
+            el.insertAdjacentHTML('afterbegin', '<span>afterbegin</span>'); //prepend
+            el.insertAdjacentHTML('beforeend', '<span>beforeend</span>'); //append
+
+            //============================================
+            
+            var elP = document.querySelectorAll('.ex_move_v p');
+            var elS = document.querySelectorAll('.ex_move_v strong');
+            
+            elP[0].before(elP[1]);
+            //elP[1].after(elP[0]);
+            
+            elP[0].append(elS[0]);
+            //elP[0].prepend(elS[1]);
+            
+            
+            
+            var a = document.createElement('span'); //문자열 못 넣어. 변수 만들어서 넣어줘.
+            elP[0].insertBefore(a,elS[0]); //= before
+            //elP[0].appendChild(a,null);
+            
+            
+
+
+        });
+    </script>
+
+    <div class="ex_add_v">
+        <!--beforebegin-->
+        <p>
+            <!--afterbegin-->
+            <strong>자식요소</strong>
+            <!--beforeend-->
+        </p>
+        <!--afterend-->
+    </div>
+    <br>
+    <hr><br>
+
+    <div class="ex_move_v">
+        <!--before-->
+        <p>
+            <strong>자식요소1-1</strong>
+            <strong>자식요소1-2</strong>
+            <!--append-->
+        </p>
+        <p>
+            <strong>자식요소2-1</strong>
+            <strong>자식요소2-2</strong>
+            <!--append-->
+        </p>
+    </div>
+
+
+
+</body></html>

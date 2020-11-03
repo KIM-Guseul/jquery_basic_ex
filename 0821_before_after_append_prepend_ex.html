@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jqeury</title>
+
+    <!--jquery 호출-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+
+<body>
+
+    <script>
+        $(function() {
+            $('.ex1 button').on('click', btn);
+
+            function btn() {
+                var idx = $(this).index();
+
+                if (idx == 0) { //up
+                    move(0);
+                } else { //down
+                    move(1);
+                }
+            }
+
+            function move(p) {
+                var sl = $('input:checked').parent();
+                if (p == 0) { //up
+                    console.log('a')
+                    sl.prev().before(sl);
+
+                } else { //down
+                    sl.next().after(sl);
+
+                }
+            }
+
+            //document ready end
+        });
+    </script>
+
+    <div class="ex1">
+        <div>
+            <p><input type="checkbox">list 01</p>
+            <p><input type="checkbox">list 02</p>
+            <p><input type="checkbox">list 03</p>
+            <p><input type="checkbox">list 04</p>
+            <p><input type="checkbox">list 05</p>
+        </div>
+        <div>
+            <button>up</button>
+            <button>down</button>
+        </div>
+
+    </div>
+
+    <br>
+
+    <script>
+        $(function() {
+
+            $('.ex2 p').on('click', slFun);
+            function slFun() {
+                $('.ex2 p').removeClass('active');
+                $(this).addClass('active');
+            }
+            
+
+            $('.ex2 button').on('click', btn);
+            function btn() {
+                var idx = $(this).index();
+                if (idx == 0) { //up            
+                    move(0);
+                } else { //down
+                    move(1);
+                }
+            }
+            
+            
+            function move(p){
+                var sl;
+                $('.ex2 p').each(function(){
+                    if($(this).hasClass('active')){
+                        sl = $(this);
+                    }
+                });
+                
+                if(p==0){//up
+                    sl.prev().before(sl);
+                    
+                }else{//down
+                    sl.next().after(sl);
+                }
+            }
+
+
+
+
+
+
+
+
+
+            //end
+        });
+    </script>
+
+    <style>
+        .ex2 {
+            padding: 50px;
+            border: 1px solid #000;
+        }
+
+        .ex2 p.active {
+            border: 1px solid #00f;
+        }
+    </style>
+
+    <div class="ex2">
+        <div>
+            <p>list 01</p>
+            <p>list 02</p>
+            <p>list 03</p>
+            <p>list 04</p>
+            <p>list 05</p>
+        </div>
+        <div>
+            <button>up</button>
+            <button>down</button>
+        </div>
+
+    </div>
+
+
+</body></html>

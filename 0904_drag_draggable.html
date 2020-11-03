@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jqeury</title>
+
+    <!--jquery 호출-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<body>
+
+    <!-- ===== 제이쿼리 ===== -->
+    <script>
+        $(function() { //document ready start
+
+            $('.drag p').draggable({
+                containment: '.drag', //.drag 영역 안에서만 작동
+                start: function() {},
+                drag: function() {
+                    $('.drag').css('background', '#00f');
+                },
+                stop: function() {
+                    $('.drag').css('background', '#0f0');
+                }
+            });
+        }); //document ready end
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+        }
+
+        .drag {
+            width: 500px;
+            height: 500px;
+            border: 2px solid #f00;
+        }
+
+        .drag p {
+            width: 100px;
+            height: 100px;
+            background: #000;
+        }
+    </style>
+
+    <div class="drag">
+        <p>
+
+        </p>
+    </div>
+
+    <!-- ===== 바닐라 ===== -->
+    <style>
+        .v_drag {
+            display: flex;
+            justify-content: space-between;
+            list-style: none;
+            margin: 100px 0;
+            padding: 0;
+            width: 600px;
+        }
+
+        .v_drag li {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #aaa;
+        }
+
+        .v_drag li img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .v_drag li.active {
+            background: #eee;
+        }
+
+        .v_drag li img.active {
+            display: none;
+        }
+    </style>
+
+    <ul class="v_drag">
+        <li>
+            <img src="../img/f01.jpg" draggable="true">
+        </li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <script>
+        $(function() {
+            var drag = document.querySelector('.v_drag img');
+            var drop = document.querySelectorAll('.v_drag li');
+
+            drag.addEventListener('dragstart', function(e) { //드래그 이벤트가 스타트된 시점에 이벤트가 딱 한번 실행.
+                setTimeout(function() { //복사본 뜰 시간 벌기 위해. 비동기 방식.
+                    drag.classList.add('active');//이미지 드래그 시 active 추가
+                }, 10);
+            });
+
+            drag.addEventListener('dragend', function(e) { //드래그 이벤트가 끝난 시점에 이벤트 실행.
+                drag.classList.remove('active');//마우스 놨을 때 active 제거
+            });
+
+            drop.forEach(function(el) {
+                el.addEventListener('dragover', dragOver);
+                //드래그한 상태에서 li에 마우스 올렸을 때. 오버하는동안 계속해서 이벤트 실행
+                el.addEventListener('dragenter', dragEnter);
+                //해당 영역에 진입 했을 때 이벤트가 한 번만 발생
+                el.addEventListener('dragleave', dragLeave);
+                //해당 영역에서 벗어날 때 이벤트가 한 번만 발생
+                el.addEventListener('drop', dragDrop);
+                //마우스를 놓을 때 실행.
+            });
+
+            function dragOver(e) {
+                e.preventDefault();//drop 이벤트와 충돌 방지(drop 이벤트가 실행돼야하는 시점에도 over가 계속해서 실행)
+            }
+
+            function dragEnter(e) {
+                e.preventDefault();//drop 이벤트와 충돌 방지
+                this.classList.add('active'); //img가 li 위로 왔을 때 active 추가
+            }
+
+            function dragLeave(e) {//img가 li를 벗어날 때 실행
+                this.classList.remove('active'); //img가 li 에서 벗어날 때 active 제거
+            }
+
+            function dragDrop(e) {//마우스를 놓을 때 실행
+                this.append(drag);
+                 //이미 생성된 자식요소 있다면 그게 이동(복사기능X clone). 자식 요소가 새로 생긴다면 복사-추가 된것.
+            }
+
+        });
+    </script>
+
+
+</body>
+
+</html>

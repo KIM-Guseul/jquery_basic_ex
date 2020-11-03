@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jqeury</title>
+
+    <!--jquery 호출-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<body>
+    <!-- ===== 이미지 슬라이드 기본 ===== -->
+
+    <style>
+        /* relative,absolute 이용 시 - 부모요소가 반드시 width,height 값을 가져야해. (자식요소 크기 인지 못해). transform,translate 이용 시*/
+        .slide {
+            width: 500px;
+            height: 400px;
+            position: relative;
+            border: 1px solid #f00;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+
+        .slide ul {/* 하나의 li 크기만큼 드래그로 ul 이동 */
+            width: 100%;
+            height: 100%;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            position: relative;
+        }
+
+        /* 가로 정렬을 위해 float(부모 영역 벗어날 수 x.밑으로 떨어져), flex(부모영역 벗어날 수o. 자식요소 사이즈를 줄여서라도 부모영역 안에 집어넣음), grid 이용 가능 */
+        .slide ul li {
+            flex: 0 0 auto;
+            /* grow증가비율 shrink감소비율 width */
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide ul li img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
+    <div class="slide">
+        <ul>
+            <li>
+                <img src="../img/f01.jpg">
+            </li>
+            <li> <img src="../img/f02.jpg">
+            </li>
+            <li> <img src="../img/f03.jpg">
+            </li>
+        </ul>
+    </div>
+
+
+
+    <script>
+        $(function() {
+            var idx = 0;
+            var pos = {
+                start: 0,
+                end: 0
+            }
+
+            $('.slide ul').draggable({
+                axis: 'x', //좌우를 컨트롤하는 속성. axis: 'y' 상하 컨트롤
+                start: dragStart,
+                drag: drag,
+                stop: dragStop
+            });
+
+            function dragStart(e) {
+                pos.start = e.pageX; //드래그 방향 알아보기 위해 커서의 위치값 이용
+            }
+
+            function drag(e) {
+                pos.end = e.pageX; //드래그하는동안의 커서의 위치값
+            }
+
+            function dragStop(e) {//드래그를 멈췄을 때
+
+                if (pos.start > pos.end) { //커서가 우측에서 좌측으로 이동
+                    //next
+                    if (idx != 2) {//마지막 이미지에서 이벤트 실행 멈춤
+                        idx++;
+                    }
+                } else { //커서가 좌측에서 우측으로 이동
+                    //prev
+                    if (idx != 0) {//첫번째 이미지에서 이벤트 실행 멈춤
+                        idx--;
+                    }
+                }
+
+                $(this).animate({
+                    left: -500 * idx //ul의 위치값 이동
+                }); //animate 메소드 안에서 css(translate..) 인지 못해
+            }
+
+        });
+    </script>
+
+
+</body>
+
+</html>

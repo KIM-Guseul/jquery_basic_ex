@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JQUERY</title>
+    <!-- <link href="css/common.css" rel="stylesheet" type="text/css"> -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<body>
+    <style>
+        html,
+        body {
+            margin: 0;
+        }
+
+        header {
+            background: #000;
+        }
+
+        header nav {
+            text-align: center;
+        }
+
+        header nav ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        header nav li {
+            position: relative;
+            display: inline-block;
+        }
+
+        header nav li>a {
+            color: #fff;
+            margin: 0 20px;
+            padding: 15px 0;
+            display: block;
+        }
+
+        header nav li>div {
+            position: absolute;
+            bottom: 0;
+            background: #f00;
+            width: 100%;
+            transform: translateY(100%);
+
+            display: none;
+        }
+
+        header nav li>div a {
+            display: block;
+            color: #fff;
+            padding: 10px;
+        }
+
+        header .mobile {
+            position: fixed;
+            right: 10%;
+            top: 16px;
+
+            display: none;
+        }
+
+        header .mobile a {
+            width: 30px;
+            height: 16px;
+            display: block;
+        }
+
+        header .mobile a span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: #fff;
+            position: absolute;
+        }
+
+        header .mobile a span:nth-of-type(1) {
+            top: 0;
+        }
+
+        header .mobile a span:nth-of-type(2) {
+            top: calc(50% - 1px);
+        }
+
+        header .mobile a span:nth-of-type(3) {
+            bottom: 0;
+        }
+
+        header .mobile.active a span:nth-of-type(1) {
+            top: 50%;
+            transform: rotate(45deg);
+        }
+
+        header .mobile.active a span:nth-of-type(2) {
+            opacity: 0;
+        }
+
+        header .mobile.active a span:nth-of-type(3) {
+            bottom: 50%;
+            transform: rotate(-45deg);
+        }
+
+        /* ===== media query ===== */
+
+        @media (max-width:768px){
+
+            header {
+                background: #000;
+                height: 50px; /**/
+            }
+
+            header nav {
+                text-align: center;
+                display: none; /**/
+                position: fixed; /**/
+                width: 100%; /**/
+                height: 100%; /**/
+                background: rgba(0,0,0,0.8); /**/
+            }
+
+            header nav ul {
+                margin: 0;
+                padding: 0;
+            }
+
+            header nav li {
+                position: relative;
+                display: block; /**/
+            }
+
+            header nav li>a {
+                color: #fff;
+                margin: 0 20px;
+                padding: 15px 0;
+                display: block;
+            }
+
+            header nav li>div {
+                position: static; /**/
+                bottom: 0;
+                background: #f00;
+                width: 100%;
+                transform: translateY(0%); /**/
+
+                display: none;
+            }
+
+            header nav li>div a {
+                display: block;
+                color: #fff;
+                padding: 10px;
+            }
+
+            header .mobile {
+                display: block; /**/
+            }
+
+        }
+    </style>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">HOME</a>
+                    <!-- <li onmouseover="" onclick=""></li> -->
+                    <div>
+                        <a href="#">인사말</a>
+                        <a href="#">연혁</a>
+                        <a href="#">오시는길</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">COMPANY</a>
+                    <div>
+                        <a href="#">인사말</a>
+                        <a href="#">연혁</a>
+                        <a href="#">오시는길</a>
+                    </div>
+                </li>
+                <li><a href="#">SERVICE</a>
+                    <div>
+                        <a href="#">인사말</a>
+                        <a href="#">연혁</a>
+                        <a href="#">오시는길</a>
+                    </div>
+                </li>
+                <li><a href="#">SHOP</a>
+                    <div>
+                        <a href="#">인사말</a>
+                        <a href="#">연혁</a>
+                        <a href="#">오시는길</a>
+                    </div>
+                </li>
+                <li><a href="#">CUSTOMER</a>
+                    <div>
+                        <a href="#">인사말</a>
+                        <a href="#">연혁</a>
+                        <a href="#">오시는길</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="mobile">
+            <a>
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
+        </div>
+    </header>
+
+    <script>
+        $(function() { //start
+
+            // ========== 서브메뉴 보이기 =============
+            var resMsg;
+            function nav() { // r : 내가 지정한 매개변수
+
+                $('header li').on({
+                    click:mouseEvent,
+                    mouseenter:mouseEvent,
+                    mouseleave:mouseEvent
+                });
+
+                // $('.mobile').on('click',function(){
+                //     $('nav').slideDown();
+                //     $(this).addClass('active');
+                // });
+                $('.mobile').on('click',function(){
+                    $('nav').slideToggle();
+                    $(this).toggleClass('active');
+                });
+
+                function mouseEvent(e) {
+                    console.log(e.type);
+
+                    if ( resMsg == 'pc') { // pc
+                        // 이벤트 타입이 click일때 실행 X.
+                        // 이벤트 타입이 enter일때 실행 O
+                        if (e.type == 'mouseenter') {
+                            $(this).find('div').stop().slideDown();
+                        }
+                    } else { // mobile
+                        // 이벤트 타입이 click일때 실행 O.
+                        // 이벤트 타입이 enter일때 실행 X
+                        if (e.type == 'click') {
+                            $(this).find('div').stop().slideDown();
+                        }
+                    }
+                    if(e.type == 'mouseleave'){
+                        $(this).find('div').stop().slideUp();
+                    }
+                }
+                //slideUp fadeIn...: animation 들어가는 항목들은 앞에 .stop() 걸어주기. 동작을 중단하는 순간 실행중인 애니메이션 중단. 실행돼야하는 명령들을 쌓아서 순차적으로 진행시키는 것(step) 중단.
+            }
+
+            nav();
+
+
+            // ========== 반응형 =============
+
+            // 기존의 명령을 죽이기 위해 off unbind 메소드 이용하면 코드가 길어져..
+            //var header = $('header nav').html();//헤더 복사 해뒀다 발동할 때마다 헤더에 다시 집어 넣어줘
+
+            var mq = window.matchMedia("screen and (max-width:768px)");
+            mq.addListener(res);
+
+            function res(e) {
+                //$('header nav').html(header);//복사해둔 'header nav'를 header에 갈아끼워줌
+                if (e.matches) {
+                    console.log('모바일');
+                    resMsg = 'mobile';
+                } else {
+                    console.log('pc');
+                    resMsg = 'pc';
+                }
+            }
+            res(mq);
+
+        }); //end
+    </script>
+
+
+</body>
+
+</html>

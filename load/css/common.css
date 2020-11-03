@@ -1,0 +1,73 @@
+html, body {
+    margin: 0;
+}
+
+header {
+    background: #000;
+    padding: 10px 0;
+    text-align: center;
+}
+
+header a {
+    color: #fff;
+    display: inline-block;
+    margin: 0 10px;
+}
+
+header nav a.active {
+    color: #ff0;
+}
+
+main {
+    min-height: 700px;
+    text-align: center;
+    line-height: 700px;
+}
+
+footer {
+    background: #ddd;
+    text-align: center;
+    padding: 20px 0;
+}
+
+
+/* ====================== data ====================== */
+
+.gallery {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 20%;
+    height: 100%;
+    background: #eee;
+    padding: 30px;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.gallery figure {
+    margin: 0;
+    padding-bottom: 30px;
+}
+
+.gallery figure p {
+    margin: 0;
+}
+
+.gallery figure p img {
+    width: 100%;
+    height: 100%;
+}
+
+.gallery figure figcaption {}
+
+
+.detail {}
+
+.detail figure {}
+
+.detail figure p {}
+
+.detail figure p img {}
+
+.detail figure figcaption {}

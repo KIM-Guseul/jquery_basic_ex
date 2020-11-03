@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jqeury</title>
+
+    <!--jquery 호출-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+
+<body>
+    <script>
+        $(function() {
+            //document ready start
+            
+            $('.faq dt').on('click',function(){
+                var as = $(this).next();
+                console.log(as);
+                
+                
+                $('.faq dd').slideUp(300);
+                as.slideDown(300);
+                
+                $('.faq dt').removeClass('active');
+                $(this).addClass('active');
+                
+            });
+
+            //document ready end
+        });
+    </script>
+
+    <style>
+        .faq {
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        .faq dt {
+            border-top: 1px solid #000;
+            padding: 16px 0;
+            position: relative;
+        }
+        .faq dt:before{
+            content: 'Q ';
+        }
+        .faq dt:after{
+            content:'';
+            background: url('arrow.svg') right center no-repeat;
+            background-size: 25px;
+            width: 25px; height: 25px;
+            position: absolute;
+            right: 0; top: 50%;
+            transform: rotate(0) translateY(-50%);
+            transform-origin: 50% 0;
+        }
+        
+        .faq dt.active:after{
+            transform: rotate(180deg);
+        }
+
+        .faq dd {
+            background: #ddd;
+            padding: 40px;
+            margin: 0;
+            
+            display: none;
+        }
+    </style>
+
+    <div class="faq">
+        <h2>FAQ</h2>
+        <dl>
+            <dt>질문</dt>
+            <dd>답변</dd>
+            
+            <dt>질문</dt>
+            <dd>답변</dd>
+            
+            <dt>질문</dt>
+            <dd>답변</dd>
+            
+            <dt>질문</dt>
+            <dd>답변</dd>
+        </dl>
+    </div>
+
+
+
+</body></html>

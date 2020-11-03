@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+`<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jqeury</title>
+
+    <!--jquery 호출-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+
+<body>
+
+    <script>
+        $(function() {
+            var first;
+            var last;
+            //1-2-3
+
+            //first.before(last); //마지막 요소를 첫번째 요소 앞으로 이동. 3-1-2. 
+            //last.after(first); //마지막 요소를 첫번째 요소 다음으로 이동 2-3-1
+
+            $('button').on('click', function() {
+                
+                first = $('.b_a figure:first');
+                last = $('.b_a figure:last');
+                var idx = $(this).index();
+
+                if (idx == 0) {
+                    first.before(last);
+                } else {
+                    last.after(first);
+                }
+                
+            });
+
+
+
+
+            //document ready end
+        });
+    </script>
+
+    <style>
+        * {
+            text-align: center;
+        }
+
+        .b_a {
+            border: 10px solid #f00;
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 100px auto;
+            
+/*            overflow: hidden;*/
+        }
+
+        div {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 1100px;
+            text-align: left;
+        }
+
+        figure {
+            display: inline-block;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            width: 300px;
+            height: 100%;
+        }
+    </style>
+
+
+    <div class="b_a">
+        <div>
+            <figure><img src="../img/f01.jpg"></figure>
+            <figure><img src="../img/f02.jpg"></figure>
+            <figure><img src="../img/f03.jpg"></figure>
+        </div>
+    </div>
+    <p>
+        <button>prev</button>
+        <button>next</button>
+    </p>
+
+
+
+
+</body></html>

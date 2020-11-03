@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jqeury</title>
+
+    <!--jquery 호출-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+
+<body>
+
+    <script>
+        $(function() {
+            //document ready start
+
+            $('button').on('click', funSH);
+
+            function funSH() {
+                if ($(this).index() == 0) {
+
+                    $('figure').eq(0).show(400, function aa() { //콜백함수. 값이 끝나는 시점에서 실행되는 함수. 
+                        $(this).next().show(400, aa);
+                        //alert('complete'); 
+                    });
+                } else {
+                    $('figure').eq(2).hide(400, function bb() {
+                        $(this).prev().hide(400, bb);
+                    });
+                }
+            }
+
+            //document ready end
+        });
+    </script>
+
+    <style>
+        * {
+            text-align: center;
+        }
+
+        figure {
+            display: inline-block;
+        }
+
+        img {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+
+
+    <div class="s_h">
+        <p>
+            <button>show</button>
+            <button>hide</button>
+        </p>
+        <div>
+            <figure>
+                <img src="../img/f01.jpg">
+            </figure>
+            <figure>
+                <img src="../img/f02.jpg">
+            </figure>
+            <figure>
+                <img src="../img/f03.jpg">
+            </figure>
+        </div>
+    </div>
+
+
+
+</body></html>

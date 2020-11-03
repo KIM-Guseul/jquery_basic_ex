@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jqeury</title>
+    
+    <!--jquery 호출-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+
+
+<script>
+    /*$ : jquery 표시*/
+    /* 
+        $(document).ready(function(){
+        console.log("ready!");
+        }); 
+        
+        문서 스캔 -> 스크립트 속 명령 수행.(이 선언문이 없다면 꼭 문서 아래에 스크립트 작성)
+    */
+
+    $(function() {
+        //document ready start
+        
+        /*      ============================
+                var el = document.querySelector('bs_1');
+                el.style = "display:none;";
+                =
+                ex: $('.bs_1').hide();
+                ============================
+                선택자: 임의로 선택. 메소드: 이미 정의된 약속.
+
+                $('선택자').메소드(명령); ex: $('.bs_1').hide();
+                $('선택자').메소드({복수의 명령}); {객체형태를 가짐. 속성:값}
+                
+                $('선택자').메소드(function(){명령});
+                ============================*/
+
+        $('.bs_1 ul li').css('list-style', 'none');
+
+        $('.bs_1 ul li').css({
+            background: '#ddd',
+            fontSize: '2rem'
+        });
+
+        $('.bs_1 ul li').eq(1).css({ //eq(1) = nth-of-type(2)
+            color: '#00f',
+            fontSize: '2.5rem'
+        });
+
+        $('.bs_1 ul li').on('click', function() {
+
+            var idx = $(this).index(); //()안에 아무것도 안쓰면 기본값 호출.
+            var txt = $(this).text(); //내가 선택하는 li(this)에 text()를 담는다.
+
+            //idx = "0"+(idx+1)+". ";
+
+            if (idx < 9) {
+                idx = "0" + (idx + 1) + ". ";
+            } else {
+                idx = (idx + 1) + ". ";
+            }
+
+            $(this).text(idx + txt);
+
+
+            //console.log($(this).index()); //선택자는 꼭 $ 붙이기 : $(this)
+        });
+    //document ready end
+    });
+
+</script>
+
+
+<body>
+
+
+    <div class="bs_1">
+        <ul>
+            <li>이미지</li>
+            <li>이미지</li>
+            <li>이미지</li>
+            <li>이미지</li>
+            <li>이미지</li>
+            <li>이미지</li>
+            <li>이미지</li>
+            <li>이미지</li>
+            <li>이미지</li>
+            <li>이미지</li>
+        </ul>
+    </div>
+
+    <!--======================================================-->
+
+    <script>
+        $(function() {
+            //document ready start
+
+            $('.bs_2 li').on('click', function() {
+                
+                //나타나게 하는 메소드 
+                //: show() addClass('active') fadeIn() slideDown()
+                //숨기는 메소드 
+                //: hide() removeClass('active') fadeOut() slideUp() 
+
+                //$(this).find('div').show(); 
+                    //find 자식요소 찾아내는데 유용한 메소드
+                    //!!주의. display:flex 일때 걍 show 하면 안돼(show는 display none -> block). display:flex 선언 해줘야해.
+
+                //$(this).find('div').addClass('active');
+                    //class로 active 추가 : addClass
+                
+                //$(this).find('div').fadeIn();
+                //$(this).find('div').slideDown();
+                
+                $('.bs_2 li').find('div').slideUp(500); 
+                $(this).find('div').slideDown(500);
+                //slideUp(500) = transition:.5s; 둘다 넣으면 충돌생겨!!
+                
+            });
+
+
+            //document ready end
+        });
+
+    </script>
+
+    <style>
+        .bs_2 {
+            padding: 100px;
+            border-top: 1xp solid #000;
+        }
+
+        .bs_2 div {
+            background: #ddd;
+            padding: 40px;
+            display: none;
+        }
+
+        .bs_2 div.active {
+            display: block;
+        }
+    </style>
+
+    <div class="bs_2">
+        <ul>
+            <li>
+                질문
+                <div>답변</div>
+            </li>
+            <li>
+                질문
+                <div>답변</div>
+            </li>
+            <li>
+                질문
+                <div>답변</div>
+            </li>
+        </ul>
+    </div>
+    
+    
+    
+    
+    <!--tabs plugin-->
+    <script>
+        $(function() {
+            $("#tabs").tabs();
+        });
+    </script>
+
+
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Nunc tincidunt</a></li>
+            <li><a href="#tabs-2">Proin dolor</a></li>
+            <li><a href="#tabs-3">Aenean lacinia</a></li>
+        </ul>
+        <div id="tabs-1">
+            <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+        </div>
+        <div id="tabs-2">
+            <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+        </div>
+        <div id="tabs-3">
+            <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
+            <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

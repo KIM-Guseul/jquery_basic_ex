@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JQUERY</title>
+    <!-- <link href="css/common.css" rel="stylesheet" type="text/css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<!-- 사용자 브라우저 + 서버에도 기록이 남아. 여러가지 정보값 등록 o
+name, value, expires 정보 가장 많이 사용. 용량:4kb(로컬스토리지:5mb). 저장방식 string(로컬스토리지:객체형태) -->
+
+<body>
+    <style>
+        .popup {
+            width: 400px;
+        }
+
+        .popup img {
+            width: 100%;
+        }
+
+        .popup a {
+            float: right;
+        }
+    </style>
+
+    <div class="popup">
+        <img src="../img/f01.jpg">
+        <div>
+            <input type="checkbox" name="oneday">
+            하루동안 보지않기
+            <a>닫기</a>
+        </div>
+    </div>
+
+    <script>
+        function setCookie() { //쿠키 남기기
+            var date = new Date(); //날짜 가져오기
+            //date.setDate(date.getDate() + 1); //date 수정. 현재날짜 + 1일
+            date.setTime(date.getTime() + 5000); //현재시간 + 5초. 24*60*60*1000 1일
+
+            document.cookie = "event=oneday; expires=" + date.toUTCString() + ";";
+            //쿠키에 흔적 남기기 //expires 시간을 남기는 곳. 5초 후에 사라져야해. 세계 표준시각으로 설정하기 toUTCString.
+
+        }
+
+        function getCookie() { //쿠키 여부 확인
+            var cookie = document.cookie; //쿠키값 불러오기
+
+            //쿠키 유무 확인 match, indexO,f test
+
+            //cookie.match('oneday') != null; //없으면 null 있으면 event=oneday
+            //cookie.indexOf('oneday') != -1; //o의 위치를 숫자로 표시. 없으면 -1 있으면 6
+            //reg.test(cookie); //정규표현식. 불린값으로 표시. 없으면 false 있으면 true
+
+            var reg = /oneday/;
+            reg.test(cookie);
+
+
+            if (reg.test(cookie)) {
+                $('.popup').hide(); //쿠키 있으면 숨기고
+            } else {
+                $('.popup').show(); //쿠키 없으면 보여주고
+            }
+
+        }
+        getCookie();
+
+        $('.popup a').on('click', function() { //클릭 이벤트
+            var check = $('input[name=oneday]').prop('checked'); //prop : attr과 유사. 속성 변경
+            if (check) setCookie(); //체크 시 setCookie 실행(흔적 남기기)
+            $('.popup').hide(); //닫기 클릭 시 팝업창 닫기.
+        });
+    </script>
+
+
+
+</body>
+
+</html>

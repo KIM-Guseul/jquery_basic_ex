@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jqeury</title>
+
+    <!--jquery 호출-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+
+<body>
+
+    <script>
+        $(function() {
+            $('.drag').append('<p></p>');
+
+            $('.drag ul').draggable({
+                axis: 'x', //x축만 이동
+                revert: true, //원위치
+
+                start: function(e) {
+                    posStart = e.pageX;
+                    console.log(posStart)
+                },
+                drag: function(e) {
+                    posDrap = e.pageX;
+                    $('.drag p').text(posDrap);
+                },
+                stop: function() {
+                    $('.drag').animate({
+                        left:400
+
+                    })
+                }
+
+            });
+
+
+
+
+
+            //document ready end
+        });
+    </script>
+
+
+    <style>
+        .drag {
+            overflow: hidden;
+            position: relative;
+
+        }
+
+        ul,
+        li {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        li {
+            width: 30%;
+            height: 300px;
+            border: 1px solid #000;
+        }
+    </style>
+
+    <div class="drag">
+        <ul>
+            <li>이미지1</li>
+            <li>이미지2</li>
+            <li>이미지3</li>
+        </ul>
+    </div>
+
+
+
+</body></html>

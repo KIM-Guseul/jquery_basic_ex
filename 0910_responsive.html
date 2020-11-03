@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JQUERY</title>
+    <!-- <link href="css/common.css" rel="stylesheet" type="text/css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<body>
+    <div id="res">
+
+    </div>
+
+    <script>
+        $(function() { //start
+
+            // // 조건문으로 window의 width 사이즈 체크 ======================
+            //
+            // function res(){
+            //     var winW = window.innerWidth;
+            //
+            //     if(winW > 480){
+            //         console.log('pc');
+            //     }else{
+            //         console.log('mobile');
+            //     }
+            // }
+            // res();
+            // $(window).resize(res); // window.resize 윈도우 사이즈 감지
+
+            // matchMedia 메소드 이용 ======================
+
+            var mq = window.matchMedia("screen and (max-width:768px)");
+            //screen and 없어도 돼. ("(max-width:768px)")
+
+            //윈도우 계속 감지하고 있다가 브라우저 상황이 달라졌을 때 메소드 실행
+            mq.addListener(res);
+
+            function res(e) {
+                if (e.matches) {
+                    console.log('모바일');
+                } else {
+                    console.log('pc');
+                }
+            }
+
+            res(mq);
+
+
+
+
+        }); //end
+    </script>
+
+
+</body>
+
+</html>

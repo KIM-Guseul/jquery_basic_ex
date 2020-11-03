@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jqeury</title>
+
+    <!--jquery 호출-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+
+<body>
+
+    <script>
+        $(function() {
+            //document ready start
+
+            $('figure').not(':first').hide(); //.not(':first') 첫번째 제외
+
+            var idx = 0;
+
+            /*          $('figure').eq(0).fadeOut();
+                        $('figure').eq(1).fadeIn();
+
+                        $('figure').eq(1).fadeOut();
+                        $('figure').eq(2).fadeIn();
+            */
+
+            function fade() {
+                $('figure').eq(idx).fadeOut(1000);
+                idx++;
+                update();
+                $('figure').eq(idx).fadeIn(1000);
+                console.log(idx);
+            }
+
+            var loop; //= setInterval(fade, 1000);
+
+            function update() {
+                var len = $('figure').length;
+                if (idx >= len) {
+                    idx = 0;
+                }
+            }
+
+            /*          $('button, .fade div').on('mouseenter', clearFun);
+                        function clearFun() {
+                            clearInterval(loop);
+                        }*/
+
+            function clearFun() {
+                clearInterval(loop);
+            }
+
+            function interFun() {
+                loop = setInterval(fade, 1000);
+            }
+
+            interFun();
+
+            $('button, .fade div').on({
+                mouseenter: clearFun,
+                mouseleave: interFun
+            });
+
+            //==================================================
+
+
+   /*         $('figure').not(':first').hide();
+            var idx = 0;
+            var loop;
+
+            //img change
+            function fade(p) {
+                $('figure').eq(idx).fadeOut(1000);
+                (p == 'next' || p == undefined) ? idx++ : idx--;
+                update();
+                $('figure').eq(idx).fadeIn(1000);
+            }
+            //idx setting
+            function update() {
+                var len = $('figure').length;
+                if (idx >= len) idx = 0;
+                if (idx == -1) idx = len - 1;
+                $('code').text('idx = ' + idx);
+            }
+            //auto clear
+            function clearFun() {
+                clearInterval(loop);
+            }
+            //auto fade
+            function interFun() {
+                loop = setInterval(fade, 3000);
+            }
+            //prev next
+            function btn() {
+                if ($(this).index() == 0) {
+                    fade('prev');
+                } else {
+                    fade('next');
+                }
+            }
+
+            //mouse over out (auto start, auto stop)
+            $('.fade div, button').on({
+                mouseenter: clearFun,
+                mouseleave: interFun
+            });
+
+            //prev,next click event
+            $('button').on('click', btn);
+
+            interFun();
+
+
+*/
+
+
+
+
+
+
+            //document ready end
+        });
+
+    </script>
+
+    <style>
+        * {
+            text-align: center;
+        }
+
+        .fade div {
+            position: relative;
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        figure {
+            position: absolute;
+            left: 0;
+            top: 0;
+            margin: 0;
+        }
+
+        img {
+            width: 300px;
+            height: 300px;
+        }
+
+    </style>
+
+
+    <div class="fade">
+        <p>
+            <button>prev</button>
+            <button>next</button>
+        </p>
+        <div>
+            <figure>
+                <img src="../img/f01.jpg">
+            </figure>
+            <figure>
+                <img src="../img/f02.jpg">
+            </figure>
+            <figure>
+                <img src="../img/f03.jpg">
+            </figure>
+        </div>
+    </div>
+
+    <span></span>
+
+
+
+</body>
+
+</html>

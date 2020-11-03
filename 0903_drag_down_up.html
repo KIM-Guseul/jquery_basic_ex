@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jqeury</title>
+
+    <!--jquery 호출-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<body>
+
+    <script>
+        $(function() {//document ready start
+
+            var blen = false; //드래그 작동 제어
+
+            var offset = {x:0,y:0}; //오브젝트 범위안에서 커서의 x, y값
+            var pos = {x:0,y:0}; // 오브젝트 포지션의 x,y값
+
+            $('.drag p').on({//'.drag p' 에 대한 이벤트 실행
+                // mousedown:function(){},
+                // mouseup:function(){},
+                // mousemove:function(){} 가독성을 위해 함수 분리
+                mousedown:mDown, //마우스를 눌렀을 때 mDown 함수 실행
+                mouseup:mUp// 마우스에서 손가락을 뗀 순간 mUp 함수 실행
+            });
+
+            $('.drag').on({//'.drag'에 대한 이벤트 실행
+                mousemove:mMove //마우스를 움직일 때 mMove 함수 실행
+            });
+
+            function mDown(e){
+                blen = true; //블린값 참 부여
+
+                // var offsetX = 0;
+                // var offsetY = 0;
+                 //객체 : 여러개의 값을 넣을 수 있어
+                 offset.x = e.offsetX; // 이벤트 실행 시 오브젝트의 x값
+                 offset.y = e.offsetY; // 이벤트 실행 시 오브젝트의 y값
+
+             }
+
+             function mUp(e){
+                 blen = false; //블린값 거짓 부여
+             }
+
+             function mMove(e){
+
+                 pos.x = e.pageX - offset.x;
+                 pos.y = e.pageY - offset.y;
+                 // 페이지 중심의 오브젝트 위치값 - 커서 위치값 (커서가 오브젝트의 시작점에 위치할 때의 위치값이 아니라 커서가 선택한 바로 그 위치의 오브젝트 위치깂을 구하기 위해. )
+
+                 if(pos.x <= 400 && pos.y <= 400){// 오브젝트가 부모요소 안에 위치할 때만 함수 실행
+
+                     if(blen){//blen값이 true일때만 함수 실행 = mDown이 실행될 때
+                         $('.drag p').css({ // 오브젝트 클릭,드래그 시 transform을 이용하여 오브젝트 위치 이동
+                            transform:'translate(' +pos.x+ 'px,' +pos.y+ 'px)'
+                        });
+
+                    }
+
+                }
+
+
+
+
+
+
+            }
+
+
+
+        });//document ready end
+    </script>
+
+
+    <style>
+    *{margin: 0;}
+    .drag{width: 500px; height: 500px; border:2px solid #f00;}
+    .drag p{width: 100px; height: 100px; background: #000;}
+    </style>
+
+
+    <div class="drag">
+        <p>
+
+        </p>
+    </div>
+
+
+
+</body></html>
